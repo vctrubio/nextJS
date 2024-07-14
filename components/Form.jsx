@@ -2,6 +2,7 @@
 
 import { db } from '@/lib/db';
 import { Category } from '@prisma/client';
+import { addIngredientDb } from '@/actions/queries';
 
 const CategoryDropdown = () => {
     return (
@@ -25,9 +26,10 @@ export const AddIngredient = () => {
 
         form.reset();
         form.querySelector('select[name="category"]').value = category;
-        
+
         console.log('Submitting form with:', { name, category });
-        return { prop: {name, category}}
+        const prop = { name, category };
+        addIngredientDb(prop);
     }
 
     return (
