@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import { Category } from '@prisma/client';
+import { AddIngredient } from '@/components/Form';
 
 //get query from db of ingredients
 interface ShowAllProps {
@@ -7,7 +7,7 @@ interface ShowAllProps {
 }
 
 //this is wrong for many reasons
-const ShowAll = async ({ table }: ShowAllProps)  => {
+const ShowAll = async ({ table }: ShowAllProps) => {
   const ingredients = await db.ingredient.findMany();
   return (
     <>
@@ -20,30 +20,6 @@ const ShowAll = async ({ table }: ShowAllProps)  => {
   )
 }
 
-const CategoryDropdown = () => {
-  return (
-    <select name="category" id="category">
-      {Object.values(Category).map((value) => (
-        <option value={value} key={value}>{value}</option>
-        
-      ))}
-    </select>
-  );
-};
-
-const AddIngredient = () => {
-  return (
-    <>
-      <form style={{color: 'red'}}>
-        <input type="text" placeholder="name" />
-        <CategoryDropdown />
-        <button type="submit">Add Ingredient</button>
-      </form>
-    </>
-  )
-}
-
-
 export default function Home() {
   return (
     <>
@@ -54,7 +30,7 @@ export default function Home() {
         <ul>
           <li>
             - query db to see ingredients
-            <ShowAll table='sunshine'/>
+            <ShowAll table='sunshine' />
           </li>
           <li>
             - create ingredient form
