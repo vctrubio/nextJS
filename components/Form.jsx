@@ -27,7 +27,6 @@ export const AddIngredient = () => {
         form.reset();
         form.querySelector('select[name="category"]').value = category;
 
-        console.log('Submitting form with:', { name, category });
         const prop = { name, category };
         addIngredientDb(prop);
     }
@@ -42,16 +41,3 @@ export const AddIngredient = () => {
         </>
     )
 }
-
-/*
-       try {
-            await db.ingredient.create({
-                data: {
-                    name: name,
-                    category: category,
-                },
-            });
-        } catch (error) {
-            console.error(error);
-        }
-*/
