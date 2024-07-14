@@ -1,3 +1,20 @@
+import { db } from '@/lib/db';
+
+//get query from db of ingredients
+
+const ShowAll = async () => {
+  const ingredients = await db.ingredient.findMany();
+  console.log("🚀 ~ showAll ~ ingredients:", ingredients)
+  return (
+    <>
+      {ingredients.map((ingredient) => (
+        <div key={ingredient.id}>
+          {ingredient.name} | {ingredient.category}
+        </div>
+      ))}
+    </>
+  )
+}
 
 export default function Home() {
   return (
@@ -9,6 +26,7 @@ export default function Home() {
         <ul>
           <li>
             - query db to see ingredients
+            <ShowAll />
           </li>
           <li>
             - create cart to select ingredient
