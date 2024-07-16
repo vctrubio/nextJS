@@ -49,5 +49,8 @@ body {
 .card-avatar{
   /* border: 1px solid white; */
   border-radius: 50%;
+  &:hover{
+    border: 1px solid white;
+  }
 }
 
