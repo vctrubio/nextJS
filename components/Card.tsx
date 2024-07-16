@@ -30,11 +30,11 @@ export const Card: React.FC<CardProps> = ({ ingredient }) => {
 export const CardSample: React.FC = () => {
     return (
         <React.Fragment>
-            <div className="flex border">
-                <div className="me-avatar">
+            <div className="card-one" style={{borderColor: 'red'}}>
+                <div className="card-avatar">
                     <SvgCart width={50} height={50} />
                 </div>
-                <div>
+                <div style={{backgroundColor: 'transparent', width: '100%'}}>
                     Apples
                 </div>
             </div>

@@ -31,3 +31,23 @@ body {
     text-wrap: balance;
   }
 }
+
+.card-one{
+  display: flex;
+  align-items: center;
+  width: 200px;
+  padding: .2em .8em;
+  gap: 1rem;
+  border: inherit;
+  border-radius: 15px;
+
+  &:hover{
+    background-color: rgba(171, 160, 160, 0.1);
+  }
+}
+
+.card-avatar{
+  /* border: 1px solid white; */
+  border-radius: 50%;
+}
+
