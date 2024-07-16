@@ -1,7 +1,7 @@
 import { db } from '@/lib/db';
 import { AddIngredient } from '@/components/Form';
 import { ViewAllIngredients } from '@/components/ViewAll';
-
+import { Card, CardSample } from '@/components/Card';
 export default function Home() {
   return (
     <>
@@ -9,7 +9,9 @@ export default function Home() {
         <div>
           Homie
         </div>
-        <ul>
+        <CardSample/>
+
+        {/* <ul>
           <li>
             - query db to see ingredients
             <ViewAllIngredients/>
@@ -23,6 +25,7 @@ export default function Home() {
             - create cart to select ingredient
           </li>
         </ul>
+         */}
       </div>
     </>
   );
