@@ -1,18 +1,7 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import { db } from "@/lib/db";
 import { getIngredientsDb } from "@/actions/queries";
-import { Ingredient } from "@prisma/client";
-
 import { Card } from "@/components/Card";
-
-const CardClickView = ({ ingredient, toggleCart }) => {
-    return (
-        <div onClick={() => toggleCart(ingredient.id)}>
-            <Card ingredient={ingredient} />
-        </div>
-    );
-};
 
 const ShoppingListPage = () => {
     const [ingredientBasket, setIngredientBasket] = useState([]);
@@ -31,6 +20,14 @@ const ShoppingListPage = () => {
         );
     };
 
+    const CardClickView = ({ ingredient}) => {
+        return (
+            <div onClick={() => toggleCart(ingredient.id)}>
+                <Card ingredient={ingredient} />
+            </div>
+        );
+    };
+
     /*
     Cart is where ingredients are stored after being added to the cart (ingredient.cart == true)
     Dispensary is where (ingredient.cart == false)
@@ -45,7 +42,7 @@ const ShoppingListPage = () => {
                 .filter(ingredient => ingredient.cart)
                 .map((ingredient) => (
                     <div key={ingredient.id}>
-                        <CardClickView ingredient={ingredient} toggleCart={toggleCart} />
+                        <CardClickView ingredient={ingredient} />
                     </div>))}
         </div>
         <div>
@@ -56,7 +53,7 @@ const ShoppingListPage = () => {
                 .filter(ingredient => !ingredient.cart)
                 .map((ingredient) => (
                     <div key={ingredient.id}>
-                        <CardClickView ingredient={ingredient} toggleCart={toggleCart} />
+                        <CardClickView ingredient={ingredient} />
                     </div>
                 ))}
         </div>
