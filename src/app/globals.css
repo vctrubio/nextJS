@@ -50,7 +50,23 @@ body {
   /* border: 1px solid white; */
   border-radius: 50%;
   &:hover{
-    border: 1px solid white;
+   /* background-color: grey; */
+  }
+}
+
+.left-nav-bar{
+  height: 100vh;
+  width: 420px;
+  border-right: 5px solid ;
+  
+  >*>*{
+    text-align: center;
+    padding: .5em;
+
+    &:hover{
+      color: black;
+      background-color: red;
+    }
   }
 }
 

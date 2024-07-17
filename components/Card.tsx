@@ -28,9 +28,10 @@ export const Card: React.FC<CardProps> = ({ ingredient }) => {
 }
 
 export const CardSample: React.FC = () => {
+
     return (
         <React.Fragment>
-            <div className="card-one" style={{borderColor: 'red'}}>
+            <div className="card-one" style={{borderColor: 'red'}} >
                 <div className="card-avatar">
                     <SvgCart width={50} height={50} />
                 </div>

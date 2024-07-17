@@ -2,16 +2,23 @@ import { db } from '@/lib/db';
 import { AddIngredient } from '@/components/Form';
 import { ViewAllIngredients } from '@/components/ViewAll';
 import { Card, CardSample } from '@/components/Card';
+import { LeftNavBar } from '@/components/LeftNavBar';
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen w-full border">
+      <div className="flex flex-row border">
+        <LeftNavBar />
         <div>
-          Homie
+          <CardSample />
         </div>
-        <CardSample/>
 
-        {/* <ul>
+      </div>
+    </>
+  );
+}
+
+/*
+ <ul>
           <li>
             - query db to see ingredients
             <ViewAllIngredients/>
@@ -23,10 +30,6 @@ export default function Home() {
           </li>
           <li>
             - create cart to select ingredient
-          </li>
-        </ul>
-         */}
-      </div>
-    </>
-  );
-}
+          </li>  
+</ul>       
+*/
