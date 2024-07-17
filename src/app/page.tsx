@@ -1,16 +1,39 @@
+'use client'
+
+import { useState } from 'react';
 import { db } from '@/lib/db';
 import { AddIngredient } from '@/components/Form';
 import { ViewAllIngredients } from '@/components/ViewAll';
-import { Card, CardSample } from '@/components/Card';
 import { LeftNavBar } from '@/components/LeftNavBar';
-import ShoppingListPage from '@/pages/ShoppingList';
+import ShoppingListPage from '@/src//pages/ShoppingList';
+
+import AdminPanel from '@/components/AdminPanel';
+import { pages } from 'next/dist/build/templates/app-page';
+
+export enum PageSelection {
+  Home = 'home',
+  Admin = 'admin',
+}
+
 export default function Home() {
+  const [pageSelect, setPageSelect] = useState(PageSelection.Home);
+
+  const RenderBar = () => {
+    switch (pageSelect) {
+      case PageSelection.Admin:
+        return <AdminPanel />;
+      case PageSelection.Home:
+          return <ShoppingListPage />;
+      default:
+        return <div><h1>Not Found 404...</h1></div>;
+    }
+  };
+
   return (
     <>
       <div className="flex flex-row border">
-        <LeftNavBar />
-        <ShoppingListPage/>
-
+        <LeftNavBar onSelect={setPageSelect}/>
+        <RenderBar />
       </div>
     </>
   );
