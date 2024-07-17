@@ -5,10 +5,9 @@ import { db } from '@/lib/db';
 import { AddIngredient } from '@/components/Form';
 import { ViewAllIngredients } from '@/components/ViewAll';
 import { LeftNavBar } from '@/components/LeftNavBar';
-import ShoppingListPage from '@/src//pages/ShoppingList';
+import ShoppingListPage from '@/src/pages/ShoppingList';
 
 import AdminPanel from '@/components/AdminPanel';
-import { pages } from 'next/dist/build/templates/app-page';
 
 export enum PageSelection {
   Home = 'home',
