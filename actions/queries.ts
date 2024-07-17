@@ -28,3 +28,13 @@ export const deleteIngredientDb = async (ingredientId: number) => {
         console.error("Error deleting ingredient from db:", error);
     }
 }
+
+export const getIngredientsDb = async () => {
+    try{
+        const ingredients = await db.ingredient.findMany();
+        return ingredients;
+    }
+    catch(error){
+        console.error("Error getting ingredients from db:", error);
+    }
+}

@@ -70,3 +70,10 @@ body {
   }
 }
 
+.shopping-list-container{
+  border: 1px solid rgb(155, 171, 38);
+  width: 100%;
+
+  h1{
+  }
+}
