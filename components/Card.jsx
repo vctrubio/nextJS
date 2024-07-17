@@ -5,23 +5,26 @@ import { DeleteBtn } from "@/components/Buttons";
 
 import SvgCart from "@/public/cart.svg"
 
-interface CardProps {
-    ingredient: Ingredient;
-}
 
-export const Card: React.FC<CardProps> = ({ ingredient }) => {
+export const Card = ({ ingredient }) => {
 
     return (
-        <React.Fragment key={ingredient.id}>
-            <div className="border boder-white flex ">
-                {JSON.stringify(ingredient, null, 2)}
-                {/* <DeleteBtn ingredientId={ingredient.id} /> */}
+        <React.Fragment>
+            <div className="card-one" style={{ borderColor: 'red' }} >
+                <div className="card-avatar">
+                    <SvgCart width={50} height={50} />
+                </div>
+                <div style={{ backgroundColor: 'transparent', width: '100%' }}>
+                    {ingredient.name}
+                </div>
             </div>
+            {/* {JSON.stringify(ingredient, null, 2)} */}
+            {/* <DeleteBtn ingredientId={ingredient.id} /> */}
         </React.Fragment>
     )
 }
 
-export const CardSample: React.FC = () => {
+export const CardSample = () => {
 
     return (
         <React.Fragment>

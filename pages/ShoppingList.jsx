@@ -4,44 +4,32 @@ import { db } from "@/lib/db";
 import { getIngredientsDb } from "@/actions/queries";
 import { Ingredient } from "@prisma/client";
 
-import { Card, CardSample } from "@/components/Card";
+import { Card } from "@/components/Card";
 
-
-class IngredientBasket extends React.Component {
-    constructor(ingredient) {
-        super(ingredient);
-        this.cart = false;
-    }
-
-    toggleCart = () => {
-        this.cart = !this.cart
-        console.log(`toggled cart for ${this.props.name} to ${this.cart}`)
-    }
-
-    render() {
-        return (
-            <div onClick={this.toggleCart} key={this.props.id}>
-                <Card ingredient={this}/>
-                {this.cart ? 'true' : 'false'}
-            </div>
-        )
-    }
-}
+const CardClickView = ({ ingredient, toggleCart }) => {
+    return (
+        <div onClick={() => toggleCart(ingredient.id)}>
+            <Card ingredient={ingredient} />
+        </div>
+    );
+};
 
 const ShoppingListPage = () => {
     const [ingredientBasket, setIngredientBasket] = useState([]);
 
-    window.ig = ingredientBasket
-
-    const parseIngredientsToBasket = (ingredients) => {
-        return ingredients.map((ingredient) => new IngredientBasket(ingredient));
-    }
-
     useEffect(() => {
         getIngredientsDb().then((ingredients) => {
-            setIngredientBasket(parseIngredientsToBasket(ingredients))
+            setIngredientBasket(ingredients.map(ingredient => ({ ...ingredient, cart: false })));
         });
     }, []);
+
+    const toggleCart = (id) => {
+        setIngredientBasket(prevBasket =>
+            prevBasket.map(ingredient =>
+                ingredient.id === id ? { ...ingredient, cart: !ingredient.cart } : ingredient
+            )
+        );
+    };
 
     /*
     Cart is where ingredients are stored after being added to the cart (ingredient.cart == true)
@@ -53,16 +41,22 @@ const ShoppingListPage = () => {
             <h1>
                 Cart
             </h1>
+            {ingredientBasket
+                .filter(ingredient => ingredient.cart)
+                .map((ingredient) => (
+                    <div key={ingredient.id}>
+                        <CardClickView ingredient={ingredient} toggleCart={toggleCart} />
+                    </div>))}
         </div>
         <div>
-            <h1>
+            <h1 >
                 Dispensary
             </h1>
             {ingredientBasket
                 .filter(ingredient => !ingredient.cart)
                 .map((ingredient) => (
                     <div key={ingredient.id}>
-                        {ingredient.render()}
+                        <CardClickView ingredient={ingredient} toggleCart={toggleCart} />
                     </div>
                 ))}
         </div>
