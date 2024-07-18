@@ -7,7 +7,6 @@ const LOCALSTORAGEPARAM = 'cart';
 
 const ShoppingListPage = () => {
     const [ingredientBasket, setIngredientBasket] = useState({});
-    window.ig = ingredientBasket;
 
     const loadLocalStorage = (ingredients) => {
         let storedCart = JSON.parse(localStorage.getItem(LOCALSTORAGEPARAM)) || {};

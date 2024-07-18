@@ -1,9 +1,6 @@
 'use client'
 
 import { useState } from 'react';
-import { db } from '@/lib/db';
-import { AddIngredient } from '@/components/Form';
-import { ViewAllIngredients } from '@/components/ViewAll';
 import { LeftNavBar } from '@/components/LeftNavBar';
 import ShoppingListPage from '@/src/pages/ShoppingList';
 
@@ -22,7 +19,7 @@ export default function Home() {
       case PageSelection.Admin:
         return <AdminPanel />;
       case PageSelection.Home:
-          return <ShoppingListPage />;
+        return <ShoppingListPage />;
       default:
         return <div><h1>Not Found 404...</h1></div>;
     }
@@ -31,26 +28,9 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-row border">
-        <LeftNavBar onSelect={setPageSelect}/>
-        <RenderBar />
+        <LeftNavBar onSelect={setPageSelect} />
+          <RenderBar />
       </div>
     </>
   );
 }
-
-/*
- <ul>
-          <li>
-            - query db to see ingredients
-            <ViewAllIngredients/>
-          </li>
-          <li>
-            - create ingredient form
-            <AddIngredient />
-            
-          </li>
-          <li>
-            - create cart to select ingredient
-          </li>  
-</ul>       
-*/
