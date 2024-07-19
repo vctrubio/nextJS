@@ -1,9 +1,8 @@
+'use client'
 
 import React from "react";
-import { Ingredient } from "@prisma/client"
-import { DeleteBtn } from "@/components/Buttons";
-import { Category } from "@prisma/client";
-
+import { FaTrash } from 'react-icons/fa';
+import { deleteIngredientDb } from '@/actions/queries';
 import SvgCart from "@/public/cart.svg"
 
 const rtnCatagoryColor = (category) => {
@@ -45,17 +44,16 @@ export const CardSample = () => {
                     Apples
                 </div>
             </div>
-            {/* {JSON.stringify(ingredient, null, 2)} */}
-            {/* <DeleteBtn ingredientId={ingredient.id} /> */}
         </React.Fragment>
     )
 }
 
-/* todos card
-svg for icons
-card flex and style
-color for category
-
-
-
-*/
+export const AdminCardItem = (item) => {
+    return (
+        <div className='admin-card'>
+            <div className="name">{item.name}</div>
+            <div className="category">{item.category}</div>
+            <div className="delete-btn" onClick={() => deleteIngredientDb(item.id)}><FaTrash /></div>
+        </div>
+    )
+}

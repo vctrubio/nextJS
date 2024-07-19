@@ -83,3 +83,19 @@ body {
     border-bottom: 2px solid white;
   }
 }
+
+.admin-card{
+  border: 1px solid wheat;
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 0;
+
+  .delete-btn{
+    align-content: center;
+  }
+
+  >*{
+    border: 1px solid white;
+    padding: .5em;
+  }
+}
