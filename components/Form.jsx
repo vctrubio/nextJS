@@ -3,8 +3,9 @@
 import { db } from '@/lib/db';
 import { Category } from '@prisma/client';
 import { addIngredientDb } from '@/actions/queries';
+import { revalidatePath } from 'next/cache';
 
-const CategoryDropdown = () => {
+export const CategoryDropdown = () => {
     return (
         <select name="category">
             {Object.values(Category).map((value) => (
