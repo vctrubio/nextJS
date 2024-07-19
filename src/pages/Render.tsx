@@ -9,23 +9,29 @@ getStaticPaths for dynamic routes
  
 */
 
-export default function Render(props: { ingredients: any; }) {
-  const { ingredients } = props;
-  console.log('helloworld2 client');
+export default function Render(props: { initialIngredients: any; }) {
+  const { initialIngredients } = props;
   return (
     <>
-      <ShoppingListPage propIngredients={ingredients}/>
+    
+      <ShoppingListPage propIngredients={initialIngredients} />
     </>
   );
 }
 
 export async function getServerSideProps() {
-  const ingredients = await getIngredientsDb();
+  try {
+    const ingredients = await getIngredientsDb();
     console.log('helloworld');
-  return {
-        
+    return {
       props: {
-          initialIngredients: ingredients,
+        initialIngredients: ingredients,
       },
-  };
+    };
+  } catch (error) {
+    console.error('Error fetching ingredients:', error);
+    return {
+      props: {}, // Return empty props or set a default value
+    };
+  }
 }

@@ -1,19 +1,13 @@
 import ShoppingListPage from '@/src/pages/ShoppingList';
-import { getIngredientsDb } from "@/actions/queries";
-import Render from '../pages/Render';
+import { getIngredientsDb } from '@/actions/queries';
 
-/**
-getStaticProps or getServerSideProps for catching
-server-side rendering
-
-getStaticPaths for dynamic routes
- 
-*/
-
-export default function Home(props: { ingredients: any; }) {
-  const { ingredients } = props;
-
+const Home = async () => {
+  const ingredients: any = await getIngredientsDb();
   return (
-      <Render/>
-  );
+    <>
+      <ShoppingListPage propIngredients={ingredients} />
+    </>
+  )
 }
+
+export default Home;
