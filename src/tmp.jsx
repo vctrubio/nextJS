@@ -1,19 +1,17 @@
-'use client'
 import React, { useState, useEffect } from "react";
 import { getIngredientsDb } from "@/actions/queries";
 import { Card } from "@/components/Card";
 
 const LOCALSTORAGEPARAM = 'cart';
 
-const ShoppingListPage = () => {
+const ShoppingListPage = ({ initialIngredients }) => {
     const [ingredientBasket, setIngredientBasket] = useState({});
-    window.ig = ingredientBasket;
 
-    const loadLocalStorage = (ingredients) => {
-        let storedCart = JSON.parse(localStorage.getItem(LOCALSTORAGEPARAM)) || {};
-        let updatedBasket = { ...storedCart };
+    useEffect(() => {
+        const storedCart = JSON.parse(localStorage.getItem(LOCALSTORAGEPARAM)) || {};
+        const updatedBasket = { ...storedCart };
 
-        ingredients.forEach(ingredient => {
+        initialIngredients.forEach(ingredient => {
             if (!storedCart[ingredient.id]) {
                 updatedBasket[ingredient.id] = { ...ingredient, cart: false };
             }
@@ -21,14 +19,7 @@ const ShoppingListPage = () => {
 
         setIngredientBasket(updatedBasket);
         localStorage.setItem(LOCALSTORAGEPARAM, JSON.stringify(updatedBasket));
-    };
-
-    useEffect(() => {
-        // localStorage.clear()
-        getIngredientsDb().then((ingredients) => {
-            loadLocalStorage(ingredients);
-        });
-    }, []);
+    }, [initialIngredients]);
 
     const toggleCart = (id) => {
         setIngredientBasket(prevBasket => {
@@ -73,6 +64,15 @@ const ShoppingListPage = () => {
             </div>
         </div>
     );
+}
+
+export async function getServerSideProps() {
+    const ingredients = await getIngredientsDb();
+    return {
+        props: {
+            initialIngredients: ingredients,
+        },
+    };
 }
 
 export default ShoppingListPage;
