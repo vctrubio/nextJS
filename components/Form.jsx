@@ -24,10 +24,9 @@ export const AddIngredient = () => {
         const name = formData.get('name');
         const category = formData.get('category');
 
-        // Check if name is not empty
         if (!name.trim()) {
-            console.log('Name cannot be empty.'); // Or handle the validation error as needed
-            return; // Exit the function to prevent further execution
+            console.log('Name cannot be empty.');
+            return;
         }
 
         form.reset();
