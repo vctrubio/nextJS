@@ -10,9 +10,9 @@ export const addIngredientDb =  async (ingredient: Ingredient) => {
                 category: ingredient.category,
             },
         });
-        console.log("🚀 ~ addIngredientDb ~ result:", result)
+        return result;
     } catch (error) {
-        console.error("Error adding ingredient to db:", error);
+        return error;
     }
 }
 
