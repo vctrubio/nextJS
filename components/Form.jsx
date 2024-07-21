@@ -1,9 +1,10 @@
 'use client'
 
-import { db } from '@/lib/db';
 import { Category } from '@prisma/client';
 import { addIngredientDb } from '@/actions/queries';
-import { revalidatePath } from 'next/cache';
+import { callToast } from '@/actions/toast';
+import useSWR, { mutate } from 'swr';
+import { useRef, useEffect } from 'react';
 
 export const CategoryDropdown = () => {
     return (
@@ -15,34 +16,41 @@ export const CategoryDropdown = () => {
     );
 };
 
-export const AddIngredient = () => {
 
-    const handleSubmit = async (e) => {
+export const AddIngredient = (path) => {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.focus();
+        }
+    }, []); // Empty dependency array means this effect runs once after initial render
+
+    const addP = async (e) => {
         e.preventDefault();
-
-        const form = e.currentTarget;
+        const form = e.target;
         const formData = new FormData(form);
         const name = formData.get('name');
         const category = formData.get('category');
+        const ingredient = { name, category };
 
-        if (!name.trim()) {
-            console.log('Name cannot be empty.');
-            return;
+        if (await addIngredientDb(ingredient)) {
+            callToast(name);
+            form.reset();
+            mutate(path);
+
         }
-
-        form.reset();
-        form.querySelector('select[name="category"]').value = category;
-
-        const prop = { name, category };
-        addIngredientDb(prop);
     }
 
     return (
         <>
-            <form onSubmit={handleSubmit} style={{ color: 'red' }}>
-                <input type="text" placeholder="name" name='name' />
+            <form
+                style={{ color: 'red', gap: 5 }}
+                onSubmit={addP}
+            >
+                <input type="text" placeholder="name" required name='name' ref={ref}/>
                 <CategoryDropdown />
-                <button type="submit">Add Ingredient</button>
+                <button>Add Ingredient</button>
             </form>
         </>
     )

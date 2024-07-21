@@ -4,24 +4,49 @@ import { Card } from "@/components/Card";
 
 const LOCALSTORAGEPARAM = 'cart';
 
+
+
 const ShoppingListPage = ({ propIngredients }) => {
     const [ingredientBasket, setIngredientBasket] = useState({});
-    console.log("🚀 ~ ShoppingListPage ~ propIngredients:", propIngredients)
-    console.log("hellworld") //why is this being consoled twice idk //bug
 
     useEffect(() => {
         // localStorage.clear();
         const localCart = JSON.parse(localStorage.getItem(LOCALSTORAGEPARAM)) || {};
         const basketPtr = { ...localCart };
 
+        const propIngredientsObj = propIngredients.reduce((acc, current) => {
+            acc[current.id] = current;
+            return acc;
+          }, {}); //this is to convert the array to an object with the id as the key
+
+          
         Object.values(propIngredients).forEach(value => {
             if (!localCart[value.id]) {
                 basketPtr[value.id] = { ...value, cart: false };
             }
         })
-        
+
+        const checkLocalStorage = () => {
+            const localCart = JSON.parse(localStorage.getItem(LOCALSTORAGEPARAM)) || {};
+            let isModified = false;
+            for (let id in localCart) {
+                if (!propIngredientsObj[id]) {
+                    delete localCart[id];
+                    // console.log("Deleted: ", id);
+                    isModified = true;
+                } else {
+                    // console.log("Exists: ", id);
+                }
+            }
+            if (isModified) {
+                localStorage.setItem(LOCALSTORAGEPARAM, JSON.stringify(localCart));
+            }
+        };
+
+
         setIngredientBasket(basketPtr);
         localStorage.setItem(LOCALSTORAGEPARAM, JSON.stringify(basketPtr));
+        checkLocalStorage();
     }, [propIngredients]);
 
     const toggleCart = (id) => {

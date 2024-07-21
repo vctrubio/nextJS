@@ -4,9 +4,9 @@ import { AdminCardItem } from '@/components/Card';
 import { addIngredientDb } from '@/actions/queries';
 import { Category, Ingredient } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { AddIngrediente, callToast } from '@/actions/toast.js';
+import { callToast } from '@/actions/toast.js';
+import { AddIngredient } from '@/components/Form';
 
-const PAGE = '/admin';
 
 const ViewAllIngredients = async () => {
     const ingredientList = await db.ingredient.findMany();
@@ -23,11 +23,12 @@ const ViewAllIngredients = async () => {
 };
 
 export default async function AdminPage() {
+    const PATH = '/admin';
 
     return (
         <div>
             <h1>Admin Page</h1>
-            <AddIngrediente />
+            <AddIngredient path={PATH} />
             <ViewAllIngredients />
         </div>
     );

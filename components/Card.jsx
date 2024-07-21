@@ -51,7 +51,7 @@ export const CardSample = () => {
 export const AdminCardItem = (item) => {
     return (
         <div className='admin-card'>
-            <div className="name">{item.name}</div>
+            <div className="name">{item.name} [{item.id}]</div>
             <div className="category">{item.category}</div>
             <div className="delete-btn" onClick={() => deleteIngredientDb(item.id)}><FaTrash /></div>
         </div>
