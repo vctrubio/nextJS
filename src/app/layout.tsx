@@ -19,11 +19,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <html lang="en">
         <body className="flex">
           <LeftNavBar />
-          <main className="flex-grow">
+          <main className="flex-grow px-2 py-1">
             {children}
             <Toaster />
-
-          </main>
+            </main>
         </body>
       </html>
     </ClerkProvider>

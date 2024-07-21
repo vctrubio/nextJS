@@ -1,35 +1,17 @@
 import { db } from '@/lib/db';
-import { CategoryDropdown } from "@/components/Form";
-import { AdminCardItem } from '@/components/Card';
-import { addIngredientDb } from '@/actions/queries';
-import { Category, Ingredient } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
-import { callToast } from '@/actions/toast.js';
 import { AddIngredient } from '@/components/Form';
-
-
-const ViewAllIngredients = async () => {
-    const ingredientList = await db.ingredient.findMany();
-    return (
-        <>
-            {
-                ingredientList &&
-                ingredientList.map((ingredient) => (
-                    <AdminCardItem key={ingredient.id} {...ingredient} />
-                ))
-            }
-        </>
-    );
-};
+import { ViewAllIngredients } from '@/components/ViewAllIngredients';
 
 export default async function AdminPage() {
     const PATH = '/admin';
 
+    const ingrediens = await db.ingredient.findMany();
+
     return (
         <div>
             <h1>Admin Page</h1>
-            <AddIngredient path={PATH} />
-            <ViewAllIngredients />
+                <AddIngredient path={PATH} />
+                <ViewAllIngredients ingredients={ingrediens} />
         </div>
     );
 }

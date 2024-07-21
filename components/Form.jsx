@@ -5,6 +5,7 @@ import { addIngredientDb } from '@/actions/queries';
 import { callToast } from '@/actions/toast';
 import useSWR, { mutate } from 'swr';
 import { useRef, useEffect } from 'react';
+import { SnackbarProvider, enqueueSnackbar, useSnackbar } from 'notistack'
 
 export const CategoryDropdown = () => {
     return (
@@ -16,15 +17,16 @@ export const CategoryDropdown = () => {
     );
 };
 
-
 export const AddIngredient = (path) => {
+    const { enqueueSnackbar } = useSnackbar();  // Get enqueueSnackbar from useSnackbar
+
     const ref = useRef(null);
 
     useEffect(() => {
         if (ref.current) {
             ref.current.focus();
         }
-    }, []); // Empty dependency array means this effect runs once after initial render
+    }, []);
 
     const addP = async (e) => {
         e.preventDefault();
@@ -35,7 +37,9 @@ export const AddIngredient = (path) => {
         const ingredient = { name, category };
 
         if (await addIngredientDb(ingredient)) {
-            callToast(name);
+            // enqueueSnackbar(`Ingredient "${name}" added!`, { variant: 'success' });
+            callToast()
+            console.log('added');
             form.reset();
             mutate(path);
 
@@ -43,15 +47,19 @@ export const AddIngredient = (path) => {
     }
 
     return (
-        <>
-            <form
-                style={{ color: 'red', gap: 5 }}
-                onSubmit={addP}
-            >
-                <input type="text" placeholder="name" required name='name' ref={ref}/>
-                <CategoryDropdown />
-                <button>Add Ingredient</button>
-            </form>
-        </>
+        <div className='form-add-ingredient'>
+            {/* <SnackbarProvider maxSnack={3}> */}
+
+                <form
+                    onSubmit={addP}
+                >
+                    <input type="text" placeholder="name" required name='name' ref={ref} />
+                    <CategoryDropdown />
+                    <button id="color-green">Add Ingredient</button>
+                </form>
+
+            {/* </SnackbarProvider> */}
+
+        </div>
     )
 }

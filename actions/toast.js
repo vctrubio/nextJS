@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 
 export const callToast = (prop) => {
     toast.success(`${prop} added successfully!`,{
-        position: 'top-center',
+        position: 'bottom-left',
     });
 
 }
