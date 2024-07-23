@@ -4,6 +4,7 @@ import React from "react";
 import { FaTrash } from 'react-icons/fa';
 import { deleteIngredientDb } from '@/actions/queries';
 import SvgCart from "@/public/cart.svg"
+import { callToast } from "@/actions/toast";
 
 const rtnCatagoryColor = (category) => {
 
@@ -48,12 +49,22 @@ export const CardSample = () => {
     )
 }
 
-export const AdminCardItem = (item) => {
+export const AdminCardItem = ({ item, setItem }) => {
+
+    const deleteIngredient = async (id) => {
+        console.log("🚀 ~ deleteIngredient ~ id:", item.id)
+        const res = await deleteIngredientDb(id); // Use id directly
+        if (res) {
+            setItem((prev) => prev.filter((item) => item.id !== id));
+            callToast(item.name, "deleted successfully!");
+        }
+    };
+
     return (
         <div className='admin-card'>
             <div className="name">{item.name} [{item.id}]</div>
             <div className="category">{item.category}</div>
-            <div className="delete-btn" onClick={() => deleteIngredientDb(item.id)}><FaTrash /></div>
+            <div className="delete-btn" onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
         </div>
-    )
-}
+    );
+};

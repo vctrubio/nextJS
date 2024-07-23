@@ -38,11 +38,9 @@ export const AddIngredient = (path) => {
 
         if (await addIngredientDb(ingredient)) {
             // enqueueSnackbar(`Ingredient "${name}" added!`, { variant: 'success' });
-            callToast()
-            console.log('added');
+            callToast(ingredient.name, "added successfully!")
             form.reset();
             mutate(path);
-
         }
     }
 

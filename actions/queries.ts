@@ -23,9 +23,10 @@ export const deleteIngredientDb = async (ingredientId: number) => {
                 id: ingredientId,
             },
         });
-        console.log("🚀 ~ deleteIngredientDb ~ result:", result)
+        return true;
     } catch (error) {
         console.error("Error deleting ingredient from db:", error);
+        return false;
     }
 }
 
