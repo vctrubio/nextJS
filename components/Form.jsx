@@ -17,7 +17,7 @@ export const CategoryDropdown = () => {
     );
 };
 
-export const AddIngredient = (path) => {
+export const AddIngredient = ({path, setItem}) => {
     const { enqueueSnackbar } = useSnackbar();  // Get enqueueSnackbar from useSnackbar
 
     const ref = useRef(null);
@@ -36,11 +36,14 @@ export const AddIngredient = (path) => {
         const category = formData.get('category');
         const ingredient = { name, category };
 
-        if (await addIngredientDb(ingredient)) {
+        let id = null;
+        if (id = await addIngredientDb(ingredient)) {
             // enqueueSnackbar(`Ingredient "${name}" added!`, { variant: 'success' });
             callToast(ingredient.name, "added successfully!")
             form.reset();
-            mutate(path);
+            // mutate(path);
+            ingredient.id = id;
+            setItem((prev) => [...prev, ingredient]);
         }
     }
 

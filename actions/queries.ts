@@ -10,9 +10,9 @@ export const addIngredientDb =  async (ingredient: Ingredient) => {
                 category: ingredient.category,
             },
         });
-        return result;
+        return result.id;
     } catch (error) {
-        return error;
+        return false;
     }
 }
 
@@ -37,5 +37,6 @@ export const getIngredientsDb = async () => {
     }
     catch(error){
         console.error("Error getting ingredients from db:", error);
+        return false;
     }
 }

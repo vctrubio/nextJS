@@ -52,8 +52,7 @@ export const CardSample = () => {
 export const AdminCardItem = ({ item, setItem }) => {
 
     const deleteIngredient = async (id) => {
-        console.log("🚀 ~ deleteIngredient ~ id:", item.id)
-        const res = await deleteIngredientDb(id); // Use id directly
+        const res = await deleteIngredientDb(id);
         if (res) {
             setItem((prev) => prev.filter((item) => item.id !== id));
             callToast(item.name, "deleted successfully!");

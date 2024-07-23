@@ -3,6 +3,7 @@ import { getIngredientsDb } from '@/actions/queries';
 
 const Home = async () => {
   const ingredients: any = await getIngredientsDb();
+
   return (
     <>
       <ShoppingListPage propIngredients={ingredients} />

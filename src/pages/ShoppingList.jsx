@@ -4,8 +4,6 @@ import { Card } from "@/components/Card";
 
 const LOCALSTORAGEPARAM = 'cart';
 
-
-
 const ShoppingListPage = ({ propIngredients }) => {
     const [ingredientBasket, setIngredientBasket] = useState({});
 
