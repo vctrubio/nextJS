@@ -128,14 +128,22 @@ body {
   border-radius: 5px;
   padding: .2em;
   margin: 1em 0;
+  /* color: #303030;
+  background-color: #50B498; */
 
   display: grid;
   grid-template-columns: 6fr 1fr 1fr;
   grid-template-rows: auto;
   align-self: center;
 
-  .delete-btn {
-    align-content: center;
+  .admin-btns {
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    gap: 1em;
+    *>{
+      align-content: center;
+    }
   }
 
   >* {
@@ -144,8 +152,7 @@ body {
     cursor: pointer;
   }
 
-  >*:hover {
-    color: rgb(162, 140, 140);
-
+  >*>*:hover {
+    transform: scale(1.2);
   }
 }

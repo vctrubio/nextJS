@@ -2,7 +2,8 @@
 
 import React from "react";
 import { FaTrash } from 'react-icons/fa';
-import { deleteIngredientDb } from '@/actions/queries';
+import { FcDataConfiguration } from "react-icons/fc";
+import { deleteIngredientDb, updateIngredientDb } from '@/actions/queries';
 import SvgCart from "@/public/cart.svg"
 import { callToast } from "@/actions/toast";
 
@@ -59,11 +60,23 @@ export const AdminCardItem = ({ item, setItem }) => {
         }
     };
 
+    const handleChange = async (item, param) => {
+        updateIngredientDb(item.id, param);
+    }
+
+    const editIngredient = (item) => {
+        console.log('editIngredient', item)
+        //open ingredient edir card and save to db
+    }
+
     return (
         <div className='admin-card'>
-            <div className="name">{item.name} [{item.id}]</div>
-            <div className="category">{item.category}</div>
-            <div className="delete-btn" onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
+            <div className="name" onClick={() => handleChange(item, "name")}>{item.name} [{item.id}]</div>
+            <div className="category" onClick={() => handleChange(item, "category")}>{item.category}</div>
+            <div className="admin-btns">
+                <div onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
+                <div onClick={() => editIngredient(item)}><FcDataConfiguration /></div>
+            </div>
         </div>
     );
 };
