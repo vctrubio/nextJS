@@ -19,28 +19,23 @@ const ShoppingListPage = ({ propIngredients }) => {
 
           
         Object.values(propIngredients).forEach(value => {
-            if (!localCart[value.id]) {
+            if (!basketPtr[value.id]) {
                 basketPtr[value.id] = { ...value, cart: false };
             }
         })
 
         const checkLocalStorage = () => {
-            const localCart = JSON.parse(localStorage.getItem(LOCALSTORAGEPARAM)) || {};
             let isModified = false;
-            for (let id in localCart) {
+            for (let id in basketPtr) {
                 if (!propIngredientsObj[id]) {
-                    delete localCart[id];
-                    // console.log("Deleted: ", id);
+                    delete basketPtr[id];
                     isModified = true;
-                } else {
-                    // console.log("Exists: ", id);
                 }
             }
             if (isModified) {
-                localStorage.setItem(LOCALSTORAGEPARAM, JSON.stringify(localCart));
+                localStorage.setItem(LOCALSTORAGEPARAM, JSON.stringify(basketPtr));
             }
         };
-
 
         setIngredientBasket(basketPtr);
         localStorage.setItem(LOCALSTORAGEPARAM, JSON.stringify(basketPtr));
