@@ -50,7 +50,7 @@ export const CardSample = () => {
 }
 
 export const AdminCardItem = ({ item, setItem }) => {
-    //set ony ony admincarditem to be visible - todo
+    //set only ony admincarditem to be visible - todo
     const [isCardFormVisible, setIsCardFormVisible] = useState(false);
 
     const deleteIngredient = async (id) => {
@@ -79,7 +79,12 @@ export const AdminCardItem = ({ item, setItem }) => {
                     <div onClick={() => editIngredient(item)}><FcDataConfiguration /></div>
                 </div>
             </div>
-            {isCardFormVisible && <CardForm ingrediente={item} toggle={() => setIsCardFormVisible(!isCardFormVisible)} />}
+            {isCardFormVisible &&
+                <CardForm ingrediente={item}
+                    toggle={() => setIsCardFormVisible(!isCardFormVisible)}
+                    deleteIngredient={deleteIngredient}
+                    setUpIngredient={setItem}
+                />}
         </>
     );
 };

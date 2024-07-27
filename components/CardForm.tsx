@@ -29,10 +29,12 @@ const Dropdown: React.FC<DropdownProps> = ({ value, setValue, options }) => {
 
 interface CardFormProps {
   ingrediente: Ingredient;
-  toggle: () => void; // Define toggle as a function that returns void
+  deleteIngredient: (id: number) => void;
+  setUpIngredient: React.Dispatch<React.SetStateAction<Ingredient[]>>;
+  toggle: () => void;
 }
 
-export const CardForm: React.FC<CardFormProps> = ({ ingrediente, toggle }) => {
+export const CardForm: React.FC<CardFormProps> = ({ ingrediente, deleteIngredient, setUpIngredient, toggle }) => {
   const [ingredient, setIngredient] = useState(ingrediente);
   const categories = Object.keys(Category);
   const useRef = React.useRef(null);
@@ -46,29 +48,20 @@ export const CardForm: React.FC<CardFormProps> = ({ ingrediente, toggle }) => {
     setIngredient((prev: any) => ({ ...prev, category }));
   };
 
-  const toggleRefresh = () => {
-    toggle();
-    //refreshpage
-  }
-
   const handleSave = async () => {
     const result = await updateIngredientDb(ingredient);
     if (result) {
       callToast(ingredient.name, " updated successfully");
+      setUpIngredient((prev) => prev.map((i) => (i.id === ingredient.id ? ingredient : i))); // Update the parent state with the new ingredient data
     } else {
       callToastError(ingredient.name, " update failed");
     }
-    toggleRefresh();
+    toggle();
   }
 
   const handleDelete = async () => {
-    const result = await deleteIngredientDb(ingrediente.id);
-    if (result) {
-      callToast(ingredient.name, " deleted successfully");
-    } else {
-      callToastError(ingredient.name, " delete failed");
-    }
-    toggleRefresh();
+    deleteIngredient(ingrediente.id);
+    toggle();
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
