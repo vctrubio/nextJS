@@ -17,7 +17,6 @@ const rtnCatagoryColor = (category) => {
 }
 
 export const Card = ({ ingredient }) => {
-
     return (
         <React.Fragment>
             <div className="card-one" style={{ border: `1px solid ${rtnCatagoryColor(ingredient)}` }} >
@@ -29,7 +28,6 @@ export const Card = ({ ingredient }) => {
                     {/* , {ingredient.category} */}
                 </div>
             </div>
-
         </React.Fragment>
     )
 }
