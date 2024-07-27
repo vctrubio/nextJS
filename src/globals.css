@@ -99,8 +99,6 @@ body {
   }
 
   .close-icon{
-    position: absolute;
-    top: 0;
     display: flex;
     justify-content: end;
     margin-right: 1em;

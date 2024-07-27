@@ -9,7 +9,7 @@ export const ViewAllIngredients = ({ingredients}) => {
     const [ingredientList, setIngredientList] = useState(ingredients);
     
     useEffect(() => {
-        console.log('hio thhere change in ingredients')
+        console.log('hio thhere change in ingredients-- call mutate')
         mutate("")
     }, [ingredientList]);
 

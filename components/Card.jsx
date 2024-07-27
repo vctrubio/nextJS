@@ -1,11 +1,12 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import { FaTrash } from 'react-icons/fa';
 import { FcDataConfiguration } from "react-icons/fc";
 import { deleteIngredientDb, updateIngredientDb } from '@/actions/queries';
 import SvgCart from "@/public/cart.svg"
 import { callToast } from "@/actions/toast";
+import { CardForm } from "@/components/CardForm";
 
 const rtnCatagoryColor = (category) => {
 
@@ -13,7 +14,7 @@ const rtnCatagoryColor = (category) => {
         return 'grey'
     }
     else
-        return 'purple'
+        return 'grey'
 }
 
 export const Card = ({ ingredient }) => {
@@ -49,6 +50,8 @@ export const CardSample = () => {
 }
 
 export const AdminCardItem = ({ item, setItem }) => {
+    //set ony ony admincarditem to be visible - todo
+    const [isCardFormVisible, setIsCardFormVisible] = useState(false);
 
     const deleteIngredient = async (id) => {
         const res = await deleteIngredientDb(id);
@@ -63,18 +66,20 @@ export const AdminCardItem = ({ item, setItem }) => {
     }
 
     const editIngredient = (item) => {
-        console.log('editIngredient', item)
-        //open ingredient edir card and save to db
+        setIsCardFormVisible(!isCardFormVisible);
     }
 
     return (
-        <div className='admin-card'>
-            <div className="name" onClick={() => handleChange(item, "name")}>{item.name} [{item.id}]</div>
-            <div className="category" onClick={() => handleChange(item, "category")}>{item.category}</div>
-            <div className="admin-btns">
-                <div onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
-                <div onClick={() => editIngredient(item)}><FcDataConfiguration /></div>
+        <>
+            <div className='admin-card'>
+                <div className="name" onClick={() => handleChange(item, "name")}>{item.name}</div>
+                <div className="category" onClick={() => handleChange(item, "category")}>{item.category}</div>
+                <div className="admin-btns">
+                    <div onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
+                    <div onClick={() => editIngredient(item)}><FcDataConfiguration /></div>
+                </div>
             </div>
-        </div>
+            {isCardFormVisible && <CardForm ingrediente={item} toggle={() => setIsCardFormVisible(!isCardFormVisible)} />}
+        </>
     );
 };

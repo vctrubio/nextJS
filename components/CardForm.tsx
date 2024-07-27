@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { db } from "@/lib/db";
 import { Ingredient, Category } from "@prisma/client";
 import { deleteIngredientDb, updateIngredientDb } from "@/actions/queries";
 import { callToast, callToastError } from "@/actions/toast";
+import { useRouter } from 'next/router';
+
 interface DropdownProps {
   value: string;
   setValue: (value: string) => void;
@@ -25,13 +27,16 @@ const Dropdown: React.FC<DropdownProps> = ({ value, setValue, options }) => {
   );
 };
 
+interface CardFormProps {
+  ingrediente: Ingredient;
+  toggle: () => void; // Define toggle as a function that returns void
+}
 
-export const CardForm = (ingrediente: Ingredient) => {
-  const i = ingrediente.ingrediente;
-  const [ingredient, setIngredient] = useState(i);
+export const CardForm: React.FC<CardFormProps> = ({ ingrediente, toggle }) => {
+  const [ingredient, setIngredient] = useState(ingrediente);
   const categories = Object.keys(Category);
-
-
+  const useRef = React.useRef(null);
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setIngredient((prev: any) => ({ ...prev, [name]: value }));
@@ -41,32 +46,46 @@ export const CardForm = (ingrediente: Ingredient) => {
     setIngredient((prev: any) => ({ ...prev, category }));
   };
 
+  const toggleRefresh = () => {
+    toggle();
+    //refreshpage
+  }
+
   const handleSave = async () => {
     const result = await updateIngredientDb(ingredient);
     if (result) {
-      callToast( ingredient.name , " updated successfully");
+      callToast(ingredient.name, " updated successfully");
     } else {
-      callToastError( ingredient.name, " update failed");
+      callToastError(ingredient.name, " update failed");
     }
+    toggleRefresh();
   }
 
   const handleDelete = async () => {
-    const result = await deleteIngredientDb(i.id);
+    const result = await deleteIngredientDb(ingrediente.id);
     if (result) {
-      callToast( ingredient.name , " deleted successfully");
+      callToast(ingredient.name, " deleted successfully");
     } else {
-      callToastError( ingredient.name, " delete failed");
+      callToastError(ingredient.name, " delete failed");
     }
+    toggleRefresh();
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleSave();
+    }
+    //only working when i click on the input field
+  };
+
   return (
-    <div className="card-form">
-      <div className="close-icon">x</div>
-      <div className="id"> Ingredient [{i.id}]</div>
+    <div className="card-form" ref={useRef} onKeyDown={handleKeyDown}>
+      <div className="close-icon" onClick={() => toggle()}>x</div>
+      <div className="id"> Ingredient [{ingrediente.id}]</div>
       <input
         className="name"
         name="name"
-        placeholder={i.name}
+        placeholder={ingrediente.name}
         value={ingredient.name}
         onChange={handleChange}
       />
