@@ -52,31 +52,69 @@ body {
   }
 }
 
+.select-headless{
+  select{
+    background-color: transparent;
+  }
+  select:focus {
+    outline: none;
+    /* Consider adding an alternative focus style for accessibility */
+    box-shadow: none;
+  }
+}
+
 .card-form{
+  position: fixed;
+  z-index: 10;
+  top: 20%;
+  left: 50%;
   display: flex;
   flex-direction: column;
-  border: 1px solid white;
+  justify-content: center;
+  align-items: center;
   border-radius: 15px;
-  padding: 1em;
+  padding: .4em;
+  width: 400px;
   
   background-color: var(--c2);
   color: #000;
   
   input{
-    background-color: rgb(178, 176, 176);
+    background-color: rgb(205, 188, 188);
     border-radius: 12px;
   }
 
   >*{
     padding: 1em;
     margin: .1em 0;
+    width: 99%;
+    text-align: center;
   }
-
+  
   .id{
     font-size: 2em;
     font-weight: lighter;
     opacity: 0.4;
     text-align: center;
+  }
+
+  .close-icon{
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: end;
+    margin-right: 1em;
+    padding: .2em;
+    cursor: pointer;
+  }
+
+  .name{
+    max-width: 200px;
+  }
+  .name:focus{
+    background-color: var(--c1);
+    outline: none;
+    box-shadow: 0 0 10px black;
   }
 
   .btns{
@@ -87,16 +125,23 @@ body {
 
     >*{
       border: 1px solid var(--c4);
-      border-radius: 1em;
+      border-radius: 15px;
       padding: .5em 1em;
       cursor: pointer; /* Pointer cursor on hover */
-
     }
 
     >*:hover {
       transform: scale(1.2);
     }
-    
+
+    /* .delete:hover{
+      background-color: rgb(134, 7, 33);
+    }
+
+    .save:hover{
+      background-color: #468585;
+    }
+     */
   }
 
 }

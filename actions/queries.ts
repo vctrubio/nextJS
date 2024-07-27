@@ -42,7 +42,7 @@ export const getIngredientsDb = async () => {
     }
 }
 
-export const updateIngredientDb = async (ingredientId: number, ingredientParam: string) => {
+export const updateIngredientDbParam = async (ingredientId: number, ingredientParam: string) => {
     console.log(`ingredientId: ${ingredientId}, ingredientParam: ${ingredientParam}`);
     
     // try {
@@ -60,4 +60,23 @@ export const updateIngredientDb = async (ingredientId: number, ingredientParam: 
     //     console.error("Error updating ingredient in db:", error);
     //     return false;
     // }
+}
+
+export const updateIngredientDb = async (ingredient: Ingredient) => {
+    // console.log(`ingredient: ${ingredient.id}`);
+    try {
+        const result = await db.ingredient.update({
+            where: {
+                id: ingredient.id,
+            },
+            data: {
+                name: ingredient.name,
+                category: ingredient.category,
+            },
+        });
+        return result.id;
+    } catch (error) {
+        console.error("Error updating ingredient in db:", error);
+        return false;
+    }
 }

@@ -7,3 +7,9 @@ export const callToast = (prop, msg) => {
         position: 'bottom-left',
     });
 }
+
+export const callToastError = (prop, msg) => {
+    toast.error(`${prop} ${msg}`,{
+        position: 'bottom-left',
+    });
+}

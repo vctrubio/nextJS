@@ -3,33 +3,33 @@
 import React, { useState } from "react";
 import { db } from "@/lib/db";
 import { Ingredient, Category } from "@prisma/client";
-
+import { deleteIngredientDb, updateIngredientDb } from "@/actions/queries";
+import { callToast, callToastError } from "@/actions/toast";
 interface DropdownProps {
-  value: string; // Adjust the type according to your actual data structure
-  setValue: (value: string) => void; // Adjust the type according to your actual data structure
-  options: string[]; // Adjust the type according to your actual data structure
+  value: string;
+  setValue: (value: string) => void;
+  options: string[];
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ value, setValue, options }) => {
-  console.log("🚀 ~ value:", value)
-  console.log("🚀 ~ options:", options)
-
   return (
-    <select value={value} onChange={(e) => setValue(e.target.value)}>
-      {options.map((option, index) => (
-        <option key={index} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className="select-headless">
+      <select value={value} onChange={(e) => setValue(e.target.value)}>
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
+
 
 export const CardForm = (ingrediente: Ingredient) => {
   const i = ingrediente.ingrediente;
   const [ingredient, setIngredient] = useState(i);
   const categories = Object.keys(Category);
-  console.log("🚀 ~ CardForm ~ categories:", categories)
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,33 +41,41 @@ export const CardForm = (ingrediente: Ingredient) => {
     setIngredient((prev: any) => ({ ...prev, category }));
   };
 
-  return (
-    <>
-      <Dropdown value='Fruit' setValue={handleCategoryChange} options={categories}>
-      </Dropdown>
-      <div className="card-form">
-        <div className="id"> Ingredient [{i.id}]</div>
-        <input
-          className="name"
-          name="name"
-          placeholder={i.name}
-          value={ingredient.name}
-          onChange={handleChange}
-        />
-        <input
-          className="category"
-          name="category"
-          value={ingredient.category}
-          placeholder={i.category}
-          onChange={handleChange}
-        />
-        <div className="btns">
-          {/* <button className="edit">Edit</button> */}
-          <button className="save">Save</button>
-          <button className="delete">Delete</button>
-        </div>
-      </div>
-    </>
+  const handleSave = async () => {
+    const result = await updateIngredientDb(ingredient);
+    if (result) {
+      callToast( ingredient.name , " updated successfully");
+    } else {
+      callToastError( ingredient.name, " update failed");
+    }
+  }
 
+  const handleDelete = async () => {
+    const result = await deleteIngredientDb(i.id);
+    if (result) {
+      callToast( ingredient.name , " deleted successfully");
+    } else {
+      callToastError( ingredient.name, " delete failed");
+    }
+  }
+
+  return (
+    <div className="card-form">
+      <div className="close-icon">x</div>
+      <div className="id"> Ingredient [{i.id}]</div>
+      <input
+        className="name"
+        name="name"
+        placeholder={i.name}
+        value={ingredient.name}
+        onChange={handleChange}
+      />
+      <Dropdown value={ingredient.category} setValue={handleCategoryChange} options={categories} />
+      <div className="btns">
+        {/* <button className="edit">Edit</button> */}
+        <button className="save" onClick={handleSave}>Save</button>
+        <button className="delete" onClick={handleDelete}>Delete</button>
+      </div>
+    </div>
   );
 };
