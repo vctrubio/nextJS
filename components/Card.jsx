@@ -24,7 +24,7 @@ export const Card = ({ ingredient }) => {
                 <div className="card-avatar">
                     <SvgCart width={50} height={50} />
                 </div>
-                <div style={{ backgroundColor: 'transparent', width: '100%' }}>
+                <div style={{ backgroundColor: 'transparent', width: '100%', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                     {ingredient.name}
                     {/* , {ingredient.category} */}
                 </div>
