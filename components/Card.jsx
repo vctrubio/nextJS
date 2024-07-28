@@ -60,11 +60,7 @@ export const AdminCardItem = ({ item, setItem, isOpen, toggleCard }) => {
 
     const handleChange = async (item, param) => {
         updateIngredientDb(item.id, param);
-    }
-
-    const editIngredient = (id) => {
-        toggleCard(id);
-    }
+    }  
 
     return (
         <>
@@ -73,12 +69,12 @@ export const AdminCardItem = ({ item, setItem, isOpen, toggleCard }) => {
                 <div className="category" onClick={() => handleChange(item, "category")}>{item.category}</div>
                 <div className="admin-btns">
                     <div onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
-                    <div onClick={() => editIngredient(item.id)}><FcDataConfiguration /></div>
+                    <div onClick={() => toggleCard(item.id)}><FcDataConfiguration /></div>
                 </div>
             </div>
             {isOpen &&
                 <CardForm ingrediente={item}
-                    toggle={() => setIsCardFormVisible(!isCardFormVisible)}
+                    toggle={() => toggleCard(item.id)}
                     deleteIngredient={deleteIngredient}
                     setUpIngredient={setItem}
                 />}
