@@ -2,12 +2,14 @@
   "name": "homie",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "delete-ig": "ts-node scripts/deleteAllIngredients.ts"
+    "delete-ig": "ts-node scripts/deleteAllIngredients.ts",
+    "seed": "node scripts/populate.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.3",

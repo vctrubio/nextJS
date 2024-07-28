@@ -49,10 +49,7 @@ export const CardSample = () => {
     )
 }
 
-export const AdminCardItem = ({ item, setItem }) => {
-    //set only ony admincarditem to be visible - todo
-    const [isCardFormVisible, setIsCardFormVisible] = useState(false);
-
+export const AdminCardItem = ({ item, setItem, isOpen, toggleCard }) => {
     const deleteIngredient = async (id) => {
         const res = await deleteIngredientDb(id);
         if (res) {
@@ -65,8 +62,8 @@ export const AdminCardItem = ({ item, setItem }) => {
         updateIngredientDb(item.id, param);
     }
 
-    const editIngredient = (item) => {
-        setIsCardFormVisible(!isCardFormVisible);
+    const editIngredient = (id) => {
+        toggleCard(id);
     }
 
     return (
@@ -76,10 +73,10 @@ export const AdminCardItem = ({ item, setItem }) => {
                 <div className="category" onClick={() => handleChange(item, "category")}>{item.category}</div>
                 <div className="admin-btns">
                     <div onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
-                    <div onClick={() => editIngredient(item)}><FcDataConfiguration /></div>
+                    <div onClick={() => editIngredient(item.id)}><FcDataConfiguration /></div>
                 </div>
             </div>
-            {isCardFormVisible &&
+            {isOpen &&
                 <CardForm ingrediente={item}
                     toggle={() => setIsCardFormVisible(!isCardFormVisible)}
                     deleteIngredient={deleteIngredient}
