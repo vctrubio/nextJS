@@ -1,15 +1,21 @@
 'use client'
-
+import React, { useState } from 'react';
 import { Category } from '@prisma/client';
 import { addIngredientDb } from '@/actions/queries';
 import { callToast } from '@/actions/toast';
-import useSWR, { mutate } from 'swr';
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { useRef, useEffect } from 'react';
-import { SnackbarProvider, enqueueSnackbar, useSnackbar } from 'notistack'
 
 export const CategoryDropdown = () => {
+    const [selectedCategory, setSelectedCategory] = useState(localStorage.getItem('selectedCategory') || '');
+
+    const handleChange = (event) => {
+        setSelectedCategory(event.target.value);
+        localStorage.setItem('selectedCategory', event.target.value);
+    };
+
     return (
-        <select name="category">
+        <select name="category" value={selectedCategory} onChange={handleChange}>
             {Object.values(Category).map((value) => (
                 <option value={value} key={value}>{value}</option>
             ))}
@@ -17,9 +23,7 @@ export const CategoryDropdown = () => {
     );
 };
 
-export const AddIngredient = ({path, setItem}) => {
-    const { enqueueSnackbar } = useSnackbar();  // Get enqueueSnackbar from useSnackbar
-
+export const AddIngredient = ({ path, setItem }) => {
     const ref = useRef(null);
 
     useEffect(() => {
@@ -38,10 +42,8 @@ export const AddIngredient = ({path, setItem}) => {
 
         let id = null;
         if (id = await addIngredientDb(ingredient)) {
-            // enqueueSnackbar(`Ingredient "${name}" added!`, { variant: 'success' });
             callToast(ingredient.name, "added successfully!")
             form.reset();
-            // mutate(path);
             ingredient.id = id;
             setItem((prev) => [...prev, ingredient]);
         }
@@ -49,18 +51,11 @@ export const AddIngredient = ({path, setItem}) => {
 
     return (
         <div className='form-add-ingredient'>
-            {/* <SnackbarProvider maxSnack={3}> */}
-
-                <form
-                    onSubmit={addP}
-                >
-                    <input type="text" placeholder="name" required name='name' ref={ref} />
-                    <CategoryDropdown />
-                    <button id="color-green">Add Ingredient</button>
-                </form>
-
-            {/* </SnackbarProvider> */}
-
+            <form onSubmit={addP} >
+                <input type="text" placeholder="name" required name='name' ref={ref} />
+                <CategoryDropdown />
+                <button><IoIosAddCircleOutline /></button>
+            </form>
         </div>
     )
 }

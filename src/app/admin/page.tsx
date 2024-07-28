@@ -7,7 +7,7 @@ export default async function AdminPage() {
     const ingrediens = await db.ingredient.findMany();
 
     return (
-        <div className='mt-2'>
+        <div className='mt-2' style={{maxWidth: '800px'}}>
             <CategoryAdmin />
             <ViewAllIngredients ingredients={ingrediens} />
         </div>

@@ -53,10 +53,11 @@ body {
   }
 }
 
-.select-headless{
-  select{
+.select-headless {
+  select {
     background-color: transparent;
   }
+
   select:focus {
     outline: none;
     /* Consider adding an alternative focus style for accessibility */
@@ -64,7 +65,7 @@ body {
   }
 }
 
-.card-form{
+.card-form {
   position: fixed;
   z-index: 10;
   top: 20%;
@@ -76,30 +77,30 @@ body {
   border-radius: 15px;
   padding: .4em;
   width: 400px;
-  
+
   background-color: var(--c2);
   color: #000;
-  
-  input{
+
+  input {
     background-color: rgb(205, 188, 188);
     border-radius: 12px;
   }
 
-  >*{
+  >* {
     padding: 1em;
     margin: .1em 0;
     width: 99%;
     text-align: center;
   }
-  
-  .id{
+
+  .id {
     font-size: 2em;
     font-weight: lighter;
     opacity: 0.4;
     text-align: center;
   }
 
-  .close-icon{
+  .close-icon {
     display: flex;
     justify-content: end;
     margin-right: 1em;
@@ -107,26 +108,28 @@ body {
     cursor: pointer;
   }
 
-  .name{
+  .name {
     max-width: 200px;
   }
-  .name:focus{
+
+  .name:focus {
     background-color: var(--c1);
     outline: none;
     box-shadow: 0 0 10px black;
   }
 
-  .btns{
+  .btns {
     display: flex;
     justify-content: center;
     gap: 1.2em;
 
 
-    >*{
+    >* {
       border: 1px solid var(--c4);
       border-radius: 15px;
       padding: .5em 1em;
-      cursor: pointer; /* Pointer cursor on hover */
+      cursor: pointer;
+      /* Pointer cursor on hover */
     }
 
     >*:hover {
@@ -152,9 +155,39 @@ body {
 }
 
 .left-nav-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   height: 100vh;
-  width: 420px;
+  width: 320px;
   background-color: rgb(49, 45, 40);
+
+  .bottom-bar {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 1em;
+    text-align: center;
+    width: 80%;
+    margin: 1em auto;
+
+    &:hover {
+      background-color: rgb(108, 100, 100);
+
+    }
+  }
+
+  a {
+    display: flex;
+    font-size: 48px;
+    gap: 10px;
+    align-items: center;
+  }
+
+  img {
+    width: 100px;
+    border-radius: 10px;
+  }
 
   >*>* {
     text-align: center;
@@ -190,17 +223,17 @@ body {
   }
 
   button {
+    align-items: center !important;
+    padding-top: 8px;
+    transform: scale(1.5);
+
     &:hover {
       color: white;
     }
   }
 }
 
-#color-green {
-  &:hover {
-    color: yellowgreen !important;
-  }
-}
+
 
 .border-corner::before {
   content: '';
@@ -226,7 +259,7 @@ body {
   background-color: #50B498; */
 
   display: grid;
-  grid-template-columns: 6fr 1fr 1fr;
+  grid-template-columns: 1fr .1fr .1fr;
   grid-template-rows: auto;
   align-self: center;
 
@@ -235,7 +268,8 @@ body {
     flex-direction: row;
     padding: 12px;
     gap: 1em;
-    *>{
+
+    *> {
       align-content: center;
     }
   }
@@ -249,4 +283,22 @@ body {
   >*>*:hover {
     transform: scale(1.2);
   }
+}
+
+
+@media screen and (max-width: 600px) {
+  .left-nav-bar {
+    min-width: 80px;
+    max-width: 80px;
+
+    img {
+      width: 60px;
+      margin: 0 auto;
+    }
+
+    .hide-mobil {
+      display: none;
+    }
+  }
+
 }
