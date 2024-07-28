@@ -9,7 +9,6 @@ import { callToast } from "@/actions/toast";
 import { CardForm } from "@/components/CardForm";
 
 const rtnCatagoryColor = (category) => {
-
     if (category.category === 'Fruit') {
         return 'grey'
     }
@@ -26,7 +25,6 @@ export const Card = ({ ingredient }) => {
                 </div>
                 <div style={{ backgroundColor: 'transparent', width: '100%', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                     {ingredient.name}
-                    {/* , {ingredient.category} */}
                 </div>
             </div>
         </React.Fragment>
@@ -34,7 +32,6 @@ export const Card = ({ ingredient }) => {
 }
 
 export const CardSample = () => {
-
     return (
         <React.Fragment>
             <div className="card-one" style={{ borderColor: 'red' }} >
@@ -58,15 +55,11 @@ export const AdminCardItem = ({ item, setItem, isOpen, toggleCard }) => {
         }
     };
 
-    const handleChange = async (item, param) => {
-        updateIngredientDb(item.id, param);
-    }  
-
     return (
         <>
             <div className='admin-card'>
-                <div className="name" onClick={() => handleChange(item, "name")}>{item.name}</div>
-                <div className="category" onClick={() => handleChange(item, "category")}>{item.category}</div>
+                <div className="name">{item.name}</div>
+                <div className="category">{item.category}</div>
                 <div className="admin-btns">
                     <div onClick={() => deleteIngredient(item.id)}><FaTrash /></div>
                     <div onClick={() => toggleCard(item.id)}><FcDataConfiguration /></div>
