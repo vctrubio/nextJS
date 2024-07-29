@@ -3,8 +3,11 @@
 import React, { useState } from "react";
 import { FaTrash } from 'react-icons/fa';
 import { FcDataConfiguration } from "react-icons/fc";
+import { GiFruitBowl } from "react-icons/gi";
+import { FaBowlRice } from "react-icons/fa6";
+import { IoIosCart } from "react-icons/io";
+
 import { deleteIngredientDb, updateIngredientDb } from '@/actions/queries';
-import SvgCart from "@/public/cart.svg"
 import { callToast } from "@/actions/toast";
 import { CardForm } from "@/components/CardForm";
 
@@ -16,30 +19,25 @@ const rtnCatagoryColor = (category) => {
         return 'grey'
 }
 
+const getSvg = (category) => {
+    if (category === 'Fruit') {
+        return <GiFruitBowl/>
+    }
+    else if (category === 'Grain')
+        return <FaBowlRice/>
+    else
+        return <IoIosCart/>
+}
+
 export const Card = ({ ingredient }) => {
     return (
         <React.Fragment>
             <div className="card-one" style={{ border: `1px solid ${rtnCatagoryColor(ingredient)}` }} >
                 <div className="card-avatar">
-                    <SvgCart width={50} height={50} />
+                    {getSvg(ingredient.category)}
                 </div>
                 <div style={{ backgroundColor: 'transparent', width: '100%', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                     {ingredient.name}
-                </div>
-            </div>
-        </React.Fragment>
-    )
-}
-
-export const CardSample = () => {
-    return (
-        <React.Fragment>
-            <div className="card-one" style={{ borderColor: 'red' }} >
-                <div className="card-avatar">
-                    <SvgCart width={50} height={50} />
-                </div>
-                <div style={{ backgroundColor: 'transparent', width: '100%' }}>
-                    Apples
                 </div>
             </div>
         </React.Fragment>
