@@ -1,5 +1,7 @@
+import Link from 'next/link';
 const HomieLogo = '/HomieLogo.png';
 const ConfigLogo = '/Config.png';
+const CookLogo = '/Kitchen.webp';
 
 export const LeftNavBar = () => {
     return (
@@ -7,20 +9,28 @@ export const LeftNavBar = () => {
             <>
                 <ul>
                     <li>
-                        <a href="/">
+                        <Link href="/" passHref>
                             <img src={HomieLogo} alt="Homie" />
                             <div className="hide-mobil">
                                 Cart
                             </div>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/admin">
+                        <Link href="/" passHref>
+                            <img src={CookLogo} alt="Cook" />
+                            <div className="hide-mobil">
+                                Cook
+                            </div>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/admin" passHref>
                             <img src={ConfigLogo} alt="Admin" />
                             <div className="hide-mobil">
                                 Admin
                             </div>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </>
