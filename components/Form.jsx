@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { Category } from '@prisma/client';
 import { addIngredientDb } from '@/actions/queries';
 import { callToast } from '@/actions/toast';

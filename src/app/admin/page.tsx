@@ -8,7 +8,7 @@ export default async function AdminPage() {
 
     return (
         <div className='mt-2' style={{maxWidth: '800px'}}>
-            <CategoryAdmin />
+            {/* <CategoryAdmin /> */}
             <ViewAllIngredients ingredients={ingrediens} />
         </div>
     );
