@@ -14,8 +14,14 @@ datasource db {
 }
 
 enum Category {
-  Fruit
-  Species
+  FruitsAndVegetables
+  DairyAndEggs
+  MeatSeafoodPoultry
+  BakeryAndBread
+  Snacks
+  FrozenFood
+  Appliances
+  BabyProducts
   Granel
 }
 

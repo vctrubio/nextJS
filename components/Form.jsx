@@ -39,7 +39,6 @@ export const AddIngredient = ({ path, setItem }) => {
         const name = formData.get('name');
         const category = formData.get('category');
         const ingredient = { name, category };
-
         let id = null;
         if (id = await addIngredientDb(ingredient)) {
             callToast(ingredient.name, "added successfully!")
