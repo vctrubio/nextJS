@@ -1,23 +1,28 @@
 import { promises as fs } from 'fs';
+import { Ingredient, Category} from '@prisma/client'
+import ButtonMe from './button';
+
+const populate = () => {
+    console.log('populating,,,,,,')
+}
 
 const HelloWorld = async () => {
-    
-    console.log('start...............')
+    let data;
+
     try{
         const fileName = '/data.json';
         const file = await fs.readFile(process.cwd() + fileName, 'utf8');
-        const data = JSON.parse(file);
-        console.log('file', data)
+        data = JSON.parse(file);
     }
     catch(error)
     {
         console.log('eeee', error)
     }
-    console.log('end...............')
+
 
     return (<>
         <div className="hello">
-            whos there
+            <ButtonMe ft={populate}/>
         </div>
     </>);
 }
